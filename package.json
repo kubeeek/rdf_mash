@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel src/index.html",
+    "build": "parcel build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "d3": "^7.3.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.2.0"
   }
 }
