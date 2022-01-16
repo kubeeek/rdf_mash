@@ -1,16 +1,191 @@
 body, html {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  color: whitesmoke;
+  background:#000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
+  z-index:0;
+  padding: 0;
+  margin:0;
 }
 
-body {
-    width: 100%;
-    height: 100vh;
+#globe {
+  cursor: move;  
 }
+  
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.globe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container > * {
+  flex-grow: 0;
+  display: flex;
+}
+
 .stars {
-    width: 100%;
-    height: 100%;
-    background:#000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
-    z-index:0;
+  background:#000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
+  z-index:0;
 }
+  
+.info-card {
+  margin-top: 1rem;
+  border-radius: 0.25rem;
+  color: whitesmoke;
+  padding: 1rem;
+  background: linear-gradient(220.55deg, #FF9D7E 0%, #4D6AD0 100%);
+  display: flex;
+  justify-content: center;
+  font-size: 50px;  
+}
+
+.data-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;;
+  justify-content: center;
+  font-size: 50px;  
+}
+.player {
+  display: flex;
+  height: 5rem;
+  justify-content: center;
+}
+.data {
+  width: 100%;
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+}
+
+.data .cover img {
+  height: 8rem;
+  width: 8rem;
+  user-select: none;
+}
+.data .cover {
+  width: 50%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.data .info {
+  width: 50%;
+  padding: 0.0rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.line {
+  line-height: 0
+}
+
+@media (min-width: 200px) { .info-card {
+  width: 80%;
+} }
+
+@media (min-width: 576px) { .info-card {
+  width: 50%;
+} }
+
+@media (min-width: 768px) { .info-card {
+  width: 50rem;
+} }
+
+@media (min-width: 992px) {  .info-card {
+  width: 35%;
+}  }
+
+@media (min-width: 1200px) { .info-card {
+  width: 35%;
+} }
+
+@media (min-width: 1400px) { .info-card {
+  width: 25%;
+} }
+
+.loader-2 {
+  display: block;
+	height: 32px;
+	width: 32px;
+	-webkit-animation: loader-2-1 3s linear infinite;
+	        animation: loader-2-1 3s linear infinite;
+}
+@-webkit-keyframes loader-2-1 {
+	0%   { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes loader-2-1 {
+	0%   { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+.loader-2 span {
+	display: block;
+	position: absolute;
+	top: 0; left: 0;
+	bottom: 0; right: 0;
+	margin: auto;
+	height: 32px;
+	width: 32px;
+	clip: rect(16px, 32px, 32px, 0);
+	-webkit-animation: loader-2-2 1.5s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite;
+	        animation: loader-2-2 1.5s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite;
+}
+@-webkit-keyframes loader-2-2 {
+	0%   { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes loader-2-2 {
+	0%   { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+.loader-2 span::before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0; left: 0;
+	bottom: 0; right: 0;
+	margin: auto;
+	height: 32px;
+	width: 32px;
+	border: 3px solid transparent;
+	border-top: 3px solid #FFF;
+	border-radius: 50%;
+	-webkit-animation: loader-2-3 1.5s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite;
+	        animation: loader-2-3 1.5s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite;
+}
+@-webkit-keyframes loader-2-3 {
+	0%   { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes loader-2-3 {
+	0%   { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+.loader-2 span::after {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0; left: 0;
+	bottom: 0; right: 0;
+	margin: auto;
+	height: 32px;
+	width: 32px;
+	border: 3px solid rgba(255, 255, 255, .5);
+	border-radius: 50%;
+}
+
+*, ::after, ::before { -webkit-box-sizing: border-box; box-sizing: border-box; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+

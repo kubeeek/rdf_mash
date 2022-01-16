@@ -2,14 +2,54 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>My First Parcel App</title>
+    <title>Musicband randomizer</title>
     <link rel="stylesheet" href="styles.css" />
     <script type="module" src="app.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="stars">
-      <div class="clouds"><canvas id="globe"></canvas>
-    </div>
-    
+    <div class="container">
+      <div class="globe-container">
+        <h4 id="current">Choose a country</h4>
+        <canvas width="400" height="400" id="globe"></canvas>
+      </div>
+      <div class="info-card">
+        <div class="loader-2 center" id="loading"><span></span></div>
+        <div class="data-container" id="data" style="display: none;">
+        <div class="data" >
+          <div class="cover">
+            <img id="pic" alt="artist image">
+          </div>
+          <div class="info">
+            <div class="line">
+              <h4>Artist name</h4>
+              <p id="name">Nirvana</p>
+            </div>
+            <div class="line">
+              <h4>Origin country</h4>
+              <p id="origin">USA</p>
+            </div>
+            <div class="line">
+              <h4>Genres</h4>
+              <p id="genre">Indie rock, grunge</p>
+            </div>
+            <div class="line">
+              <h4>Top tracks</h4>
+              <p class="top">Lolum polelum</p>
+            </div>
+          </div>
+     
+          </div>
+          <div class="player">
+            <video controls="" autoplay="" name="media">
+              <source src="https://p.scdn.co/mp3-preview/104ad0ea32356b9f3b2e95a8610f504c90b0026b?cid=8897482848704f2a8f8d7c79726a70d4" type="audio/mpeg">
+            </video>
+          </div>
+        
+        </div>
+      </div>
     </body>
 </html>
