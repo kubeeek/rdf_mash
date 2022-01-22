@@ -185,9 +185,16 @@ async function showBox() {
 
   requestInProgress = true;
 
-  const type = getRandomIntInclusive(0, 1) == 0 ? 'artist' : 'band'
-  const result = await (await fetch(`http://localhost:5000/${type}/${currentCountryCode}`)).json();
-  console.log(result);
+  const type = getRandomIntInclusive(0, 1) == 0 ? 'artist' : 'band';
+  let result = null;
+  try {
+  result  = await (await fetch(`http://localhost:5000/${type}/${currentCountryCode}`)).json();
+    console.log(result);
+  } catch (e) {
+    console.error(e);
+    return;
+  }
+
   infoCardDOM.artist.text(result.name)
   infoCardDOM.origin.text(result.country.slice(0, 2).join(', '))
   infoCardDOM.genre.text(result.genre.map(_v => _v[0].toUpperCase() + _v.slice(1)).slice(0, 2).join(', '))
