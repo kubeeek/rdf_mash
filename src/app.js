@@ -60,11 +60,30 @@ window.addEventListener('DOMContentLoaded', async (ev) => {
 
     d3.timer(rotate)
 
-    canvas.on('click', mousemove);
+    canvas
+      .call(d3.drag()
+        .on('start', dragstarted)
+        .on('drag', dragged)
+      )
+      .on('click', mousemove);
     window.addEventListener('resize', scale);
     scale()
 
 })
+
+function dragstarted() {
+  v0 = versor.cartesian(projection.invert(d3.mouse(this)))
+  r0 = projection.rotate()
+  q0 = versor(r0)
+}
+
+function dragged() {
+  var v1 = versor.cartesian(projection.rotate(r0).invert(d3.mouse(this)))
+  var q1 = versor.multiply(q0, versor.delta(v0, v1))
+  var r1 = versor.rotation(q1)
+  projection.rotate(r1)
+  render()
+}
 
 function scale() {
   width = document.documentElement.clientWidth - document.documentElement.clientWidth*1/5
@@ -84,8 +103,9 @@ function mousemove() {
         const countryData = cList.find(_c => _c.id == selectedCounty.id);
         if(!countryData)
           return;
-        currentCountryCode = countryData.name;
+        currentCountryCode = countryData["alpha-2"];
         currentTextbox.text(countryData.name);
+        console.log(currentCountryCode);
     } else {
         currentTextbox.text("Choose a country")
     }
@@ -108,7 +128,7 @@ function getCountry(event) {
   
 async function getWorldData() {
     let world = await (await fetch("https://raw.githubusercontent.com/vega/datalib/master/test/data/world-110m.json")).json();
-    let countryList = await d3.tsv('https://gist.githubusercontent.com/mbostock/4090846/raw/07e73f3c2d21558489604a0bc434b3a5cf41a867/world-country-names.tsv')
+    let countryList = await d3.csv('https://gist.githubusercontent.com/lkopacz/dfd9cc04a4d5a5f0fe87c89a79524479/raw/39100d4f6b7c784bd5d838a4e357873ef6877579/world-country-names.csv')
     return [world, countryList]
 }
 
@@ -151,26 +171,33 @@ function rotate(elapsed) {
         lastTime = now
 }
 
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 async function showBox() {
   if(requestInProgress)
     return;
-
 
   infocard.node().style.visibility   = 'visible';
 
   requestInProgress = true;
 
-  const result = await (await fetch(`http://localhost:5000/artist/${currentCountryCode}`)).json();
-
+  const type = getRandomIntInclusive(0, 1) == 0 ? 'artist' : 'band'
+  const result = await (await fetch(`http://localhost:5000/${type}/${currentCountryCode}`)).json();
+  console.log(result);
   infoCardDOM.artist.text(result.name)
-  infoCardDOM.origin.text(result.country.join(', '))
+  infoCardDOM.origin.text(result.country.slice(0, 2).join(', '))
   infoCardDOM.genre.text(result.genre.map(_v => _v[0].toUpperCase() + _v.slice(1)).slice(0, 2).join(', '))
-  infoCardDOM.img.attr("src", result.image[0])
+  infoCardDOM.img.attr("src", result.image.url)
 
   requestInProgress = false;
   d3.select("#data").node().style.display = 'flex';
   d3.select("#loading").node().style.display = 'none';
   d3.select("#loading").node().style.position = 'absolute';
+  d3.select("#audio-src").node().src = result.audio.preview;
 
 };
 
