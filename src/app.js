@@ -199,12 +199,14 @@ async function showBox() {
   infoCardDOM.origin.text(result.country.slice(0, 2).join(', '))
   infoCardDOM.genre.text(result.genre.map(_v => _v[0].toUpperCase() + _v.slice(1)).slice(0, 2).join(', '))
   infoCardDOM.img.attr("src", result.image.url)
+  infoCardDOM.top.text(result.audio.name)
 
   requestInProgress = false;
   d3.select("#data").node().style.display = 'flex';
   d3.select("#loading").node().style.display = 'none';
   d3.select("#loading").node().style.position = 'absolute';
   d3.select("#audio-src").node().src = result.audio.preview;
+
 
 };
 
